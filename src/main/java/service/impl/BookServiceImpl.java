@@ -73,6 +73,17 @@ public class BookServiceImpl implements BookService02 {
 
     @Override
     public void returnBook(int bookId) {
-
+       Book book = bookRepository.getBookByID(bookId);
+       if(book==null){
+            System.out.println("Book not found");
+            return;
+       }
+       if(book.getIssuedMemberId()==null){
+           System.out.println("Book is not currently issued");
+           return;
+       }
+       book.setIssuedMemberId(null);
+       bookRepository.updateBook(book);
+       System.out.println("Book returned");
     }
 }
