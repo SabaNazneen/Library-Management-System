@@ -1,6 +1,7 @@
 package service.impl;
 
 import model.Book;
+import model.Member;
 import repository.BookRepository;
 import repository.MemberRepository;
 import repository.impl.BookRepositoryImpl;
@@ -15,38 +16,60 @@ public class BookServiceImpl implements BookService02 {
 
     @Override
     public void addBook(Book book) {
-       bookRepository.addBook(book);
+        bookRepository.addBook(book);
     }
 
     @Override
-    public void searchBooksByAuthor(String author) {
-
+    public Book getBookById(int id) {
+        return bookRepository.getBookByID(id);
     }
 
     @Override
-    public List<Book> getAllBooksByAuthor(String author) {
-        return List.of();
+    public List<Book> searchBooksByAuthor(String author) {
+       return bookRepository.searchBooksByAuthor(author);
     }
-
     @Override
     public void deleteBook(int id) {
-
+        bookRepository.deleteBook(id);
     }
-
     @Override
     public void updateBook(Book book) {
+        bookRepository.updateBook(book);
+    }
+    @Override
+    public List<Book> getAllBooks() {
 
+        return bookRepository.getAllBooks();
     }
 
     @Override
-    public List<Book> getAllBooks() {
-        return List.of();
+    public List<Book> searchBooksByTitle(String title) {
+        return bookRepository.searchBooksByTitle(title);
     }
 
     @Override
     public void issueBook(int bookId, int memberId) {
+            Book book = bookRepository.getBookByID(bookId);
+            if(book==null){
+                System.out.println("Book not found");
+                return;
+            }
+            Member member = memberRepository.getMemberByID(memberId);
+            if(member==null){
+                System.out.println("Member not found");
+                return;
+            }
+            if(book.getIssuedMemberId()!=null)
+            {
+                System.out.println("Book is already issued");
+                return;
+            }
+            book.setIssuedMemberId(memberId);
+            bookRepository.updateBook(book);
+            System.out.println("Book issued");
+        }
 
-    }
+
 
     @Override
     public void returnBook(int bookId) {

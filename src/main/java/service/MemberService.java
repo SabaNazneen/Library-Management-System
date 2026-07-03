@@ -9,7 +9,10 @@ public interface MemberService {
     void updateMember(Member member);
     void deleteMember(int id);
     List<Member> getAllMembers();
+    Member getMembersById(int id);
     Member searchMemberByID(int id);
+    List<Member> searchMembersByName(String name);
+    Member getMemberByEmail(String email);
 
 }
 

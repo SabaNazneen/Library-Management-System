@@ -34,7 +34,7 @@ public class MemberRepositoryImpl implements MemberRepository {
         return new ArrayList<>(members.values());
     }
     @Override
-    public Member getMember(int id) {
+    public Member getMemberByID(int id) {
         return members.get(id);
     }
     @Override
@@ -51,6 +51,19 @@ public class MemberRepositoryImpl implements MemberRepository {
     }
 
     @Override
+    public Member searchMembersById(int id) {
+        return members.get(id);
+    }
+
+    @Override
     public Member getMemberByEmail(String email) {
-        throw new UnsupportedOperationException("Not implemented yet");    }
+        for(Member member:members.values())
+        {
+            if(member.getEmail().equals(email))
+            {
+                return member;
+            }
+        }
+        return null;
+    }
 }

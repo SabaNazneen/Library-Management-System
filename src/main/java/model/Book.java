@@ -6,13 +6,16 @@ public  class Book {
     private String author;
     private String category;
     private boolean available;
+    private Integer issuedMemberId;
 
-    public Book(int id, String title, String author, String category) {
+
+    public Book(int id, String title, String author, String category,  Integer issuedMemberId) {
         this.id = id;
         this.title = title;
         this.author = author;
         this.category = category;
         this.available = true;
+        this.issuedMemberId = issuedMemberId;
     }
 
     @Override
@@ -24,6 +27,7 @@ public  class Book {
                 ", author=" +author +'\''+
                 ", category=" +category +'\''+
                 ", available=" +available+ '\''+
+                ", issuedMemberId=" +issuedMemberId+'\''+
                 '}';
     }
     public int getId() {
@@ -45,6 +49,14 @@ public  class Book {
 
     public void setAuthor(String author) {
         this.author = author;
+    }
+
+    public Integer getIssuedMemberId() {
+        return issuedMemberId;
+    }
+
+    public void setIssuedMemberId(Integer issuedMemberId) {
+        this.issuedMemberId = issuedMemberId;
     }
 
     public String getCategory() {
