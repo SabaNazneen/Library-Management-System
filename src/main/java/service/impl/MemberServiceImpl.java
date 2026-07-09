@@ -8,7 +8,12 @@ import service.MemberService;
 import java.util.List;
 
 public class MemberServiceImpl implements MemberService {
-    private MemberRepository memberRepository = new MemberRepositoryImpl();
+    private MemberRepository memberRepository;
+
+    public MemberServiceImpl(MemberRepository memberRepository) {
+        this.memberRepository = memberRepository;
+    }
+
     @Override
     public void addMember(Member member) {
         memberRepository.addMember(member);

@@ -11,8 +11,13 @@ import service.BookService02;
 import java.util.List;
 
 public class BookServiceImpl implements BookService02 {
-    private BookRepository bookRepository = new BookRepositoryImpl();
-    private MemberRepository memberRepository = new MemberRepositoryImpl();
+    private BookRepository bookRepository;
+    private MemberRepository memberRepository;
+
+    public BookServiceImpl(BookRepository bookRepository, MemberRepository memberRepository) {
+        this.bookRepository = bookRepository;
+        this.memberRepository = memberRepository;
+    }
 
     @Override
     public void addBook(Book book) {
@@ -67,6 +72,7 @@ public class BookServiceImpl implements BookService02 {
             book.setIssuedMemberId(memberId);
             bookRepository.updateBook(book);
             System.out.println("Book issued");
+        System.out.println(memberRepository.getAllMembers());
         }
 
 
@@ -85,5 +91,6 @@ public class BookServiceImpl implements BookService02 {
        book.setIssuedMemberId(null);
        bookRepository.updateBook(book);
        System.out.println("Book returned");
+       // System.out.println(memberRepository.getAllMembers());
     }
 }
