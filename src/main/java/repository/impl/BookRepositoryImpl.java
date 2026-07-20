@@ -21,11 +21,7 @@ public class BookRepositoryImpl implements BookRepository {
 
     @Override
     public void updateBook(Book book) {
-       if(books.containsKey(book.getId()))
-       {
            books.put(book.getId(),book);
-       }
-
     }
 
     @Override

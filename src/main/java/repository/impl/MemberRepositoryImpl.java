@@ -16,27 +16,19 @@ public class MemberRepositoryImpl implements MemberRepository {
     }
     @Override
     public void updateMember(Member member) {
-        if(members.containsKey(member.getId()))
-        {
-            members.put(member.getId(),member);
-        }
+         members.put(member.getId(),member);
     }
     @Override
     public void deleteMember(int id) {
-        if(members.containsKey(id))
-        {
-            members.remove(id);
-        }
+        members.remove(id);
+
     }
     @Override
     public List<Member> getAllMembers() {
 
         return new ArrayList<>(members.values());
     }
-    @Override
-    public Member getMemberByID(int id) {
-        return members.get(id);
-    }
+
     @Override
     public List<Member> searchMembersByName(String name) {
         List<Member>memberList = new ArrayList<>();

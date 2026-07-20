@@ -21,6 +21,11 @@ public class BookServiceImpl implements BookService02 {
 
     @Override
     public void addBook(Book book) {
+        Book existing = bookRepository.getBookByID(book.getId());
+        if (existing != null) {
+            System.out.println("Book with ID " + book.getId() + " already exists.");
+            return;
+        }
         bookRepository.addBook(book);
     }
 
@@ -35,11 +40,25 @@ public class BookServiceImpl implements BookService02 {
     }
     @Override
     public void deleteBook(int id) {
+        Book existingBook = bookRepository.getBookByID(id);
+        if(existingBook == null){
+            System.out.println("Book with ID " + id + " does not exist");
+            return;
+        }
         bookRepository.deleteBook(id);
+        System.out.println("Book with ID " + id + " has been deleted");
     }
     @Override
     public void updateBook(Book book) {
-        bookRepository.updateBook(book);
+        Book existing = bookRepository.getBookByID(book.getId());
+        if(existing == null){
+            System.out.println("Book not found");
+            return;
+        }
+        existing.setTitle(book.getTitle());
+        existing.setAuthor(book.getAuthor());
+        existing.setCategory(book.getCategory());
+        bookRepository.updateBook(existing);
     }
     @Override
     public List<Book> getAllBooks() {
@@ -59,7 +78,7 @@ public class BookServiceImpl implements BookService02 {
                 System.out.println("Book not found");
                 return;
             }
-            Member member = memberRepository.getMemberByID(memberId);
+            Member member = memberRepository.searchMembersById(memberId);
             if(member==null){
                 System.out.println("Member not found");
                 return;

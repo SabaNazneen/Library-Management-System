@@ -21,11 +21,24 @@ public class MemberServiceImpl implements MemberService {
 
     @Override
     public void updateMember(Member member) {
-        memberRepository.updateMember(member);
+        Member existing = memberRepository.searchMembersById(member.getId());
+        if(existing == null){
+            System.out.println("Member with ID " + member.getId() + " does not exist");
+            return;
+        }
+        existing.setName(member.getName());
+        existing.setEmail(member.getEmail());
+        existing.setPhone(member.getPhone());
+        memberRepository.updateMember(existing);
     }
 
     @Override
     public void deleteMember(int id) {
+        Member existing = memberRepository.searchMembersById(id);
+        if(existing == null){
+            System.out.println("Member with ID " + id + " does not exist");
+            return;
+        }
         memberRepository.deleteMember(id);
     }
 
@@ -35,10 +48,7 @@ public class MemberServiceImpl implements MemberService {
         return memberRepository.getAllMembers();
     }
 
-    @Override
-    public Member getMembersById(int id) {
-        return memberRepository.getMemberByID(id);
-    }
+
 
     @Override
     public Member getMemberByEmail(String email) {
@@ -47,7 +57,13 @@ public class MemberServiceImpl implements MemberService {
 
     @Override
     public Member searchMemberByID(int id) {
-        return memberRepository.searchMembersById(id);
+        Member existing = memberRepository.searchMembersById(id);
+        if(existing == null){
+            System.out.println("Member with ID " + id + " does not exist");
+            return null;
+        }
+        System.out.println("Member with ID " + id + " found");
+        return existing;
     }
 
     @Override

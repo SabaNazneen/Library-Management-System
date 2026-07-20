@@ -9,7 +9,6 @@ public interface MemberRepository {
     void updateMember(Member member);
     void deleteMember(int id);
     List<Member> getAllMembers();
-    Member getMemberByID(int id);
     Member searchMembersById(int id);
     List<Member> searchMembersByName(String name);
     Member getMemberByEmail(String email);
